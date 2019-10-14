@@ -1,4 +1,4 @@
-# Quantifying_Zebrafish_Patterns
+# Quantifying Zebrafish Patterns
 Code for quantifying spots and stripes using topological data analysis and machine learning 
 
 _Authors:_ Melissa R. McGuirl, Alexandria Volkening, Bjorn Sandstede 
