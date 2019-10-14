@@ -1,0 +1,3 @@
+Ripser
+numpy
+matplotlib
