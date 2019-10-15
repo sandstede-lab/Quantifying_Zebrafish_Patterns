@@ -45,6 +45,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Data samples:    
 
+MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime are provided for sample data. If you would like more data, please contact Melissa R. McGuirl at melissa_mcguirl@brown.edu.
+
 ```
       cd data/sample_inputs
       1) Out_WT_default_1.mat 
@@ -52,11 +54,12 @@ These instructions will get you a copy of the project up and running on your loc
       3) Out_shady_default_1.mat 
       4) Out_nacre_default_1.mat 
       
-      The above are MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime.
 ```
 
 
 ### Matlab examples:    
+
+Example scripts are provided to demonstrate how to generate input data and run the program from wild-type stripes and mutants. 
 
 ```
       cd src/matlab/examples
@@ -68,9 +71,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 ## Pipeline 
-```
 The two main files are quantify_spots.m and quantify_stripes.m for quantifying spots and stripes, respectively. 
-```
+
 
 ### Generating input data
 ```
