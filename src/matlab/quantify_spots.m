@@ -1,14 +1,16 @@
 function  [num_spots, spot_size, roundness_score, center_stripe_rad, alignment_score,...
-    xanS_mel_density, mel_xanS_density, mean_mel_space, var_mel_space, mean_melxanC_space, var_melxanC_space, ...
-    melCV, mean_xanC_space, var_xanC_space]  = quantify_spots(output_dir, PD_dir, time_pt, pers_cutoff, cell_type)
+    xanL_mel_density, mel_xanL_density, mean_mel_space, var_mel_space, mean_melxanD_space, var_melxanD_space, ...
+    melCV, mean_xanD_space, var_xanD_space]  = quantify_spots(cells_mel, cells_iriL, cells_xanD, cells_xanL, ...
+    PD_dir, boundaryX, boundaryY, pers_cutoff, cell_type)
 
 % This is a MATLAB function whichs reads in files containing the
 % dimension 0 persistent homology data and outputs pattern
 % statistics of a shady mutant.
 %
-% Inputs: output_dir is the path to the original model output data; OD_dir is a path
-% to the saved persistent homology data files (Ripser outputs); time_point is the time/day at which
-% patterns will be quantifies; pers_cutoff is the persistence cut for
+% Inputs: cells_mel, cells_iriL, cells_xanD, and cells_xanL are coordinate data of cell locations; PD_dir is a path
+% to the saved persistent homology data files (Ripser outputs); boundaryX
+% is x-boundary of domain (right); boundaryY is the y-boundary of the domain
+% (top); pers_cutoff is the persistence cut for
 % counting betti-0 numbers (based on cell-to-cell measurements); cell_type
 % is the cell type used to compute spot statistics (options are 'M', 'I').
 %
@@ -21,14 +23,6 @@ function  [num_spots, spot_size, roundness_score, center_stripe_rad, alignment_s
 % load dimension 0 persistent homology data
 
 % get cell positions
-load(output_dir)
-
-cutoff =  0.1*boundaryY(time_pt);
-cells_mel = cellsM(find(cellsM(1:numMel(time_pt), 2,time_pt) > cutoff &  cellsM(1:numMel(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff), :, time_pt);
-cells_iriL = cellsIl(find(cellsIl(1:numIril(time_pt), 2,time_pt) > cutoff &  cellsIl(1:numIril(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
-cells_xanC = cellsXc(find(cellsXc(1:numXanc(time_pt), 2,time_pt) > cutoff &  cellsXc(1:numXanc(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
-cells_xanS = cellsXsn(find(cellsXsn(1:numXansn(time_pt), 2,time_pt) > cutoff &  cellsXsn(1:numXansn(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
-
 
 
 bars_0 = importdata(PD_dir);
@@ -68,7 +62,7 @@ if ~isempty(cells) && size(cells, 1) > 1 && b0 > 0
     
     for k = 1:b0
         cluster_size(k,1) = length(find(c == k)) ;
-        if cluster_size(k,1) > 4 &&  boundaryX(time_pt) - max(cells(find(c==k),1)) > 500 && min(cells(find(c==k),1)) > 500 &&   boundaryY(time_pt) - max(cells(find(c==k),2)) > 500 && min(cells(find(c==k),2)) > 500
+        if cluster_size(k,1) > 4 &&  boundaryX - max(cells(find(c==k),1)) > 500 && min(cells(find(c==k),1)) > 500 &&   boundaryY - max(cells(find(c==k),2)) > 500 && min(cells(find(c==k),2)) > 500
             [~, ~,latent] = pca(cells(find(c==k),:));
             pca_ev_ratio(k,1) = latent(1)/latent(2); % pca eigenvalue ratio
             centroids(k,:) = mean(cells(find(c == k),:)); % centroids of clusters
@@ -76,8 +70,8 @@ if ~isempty(cells) && size(cells, 1) > 1 && b0 > 0
         end
     end
 else
-    pca_ev_ratio = 0;
-    cluster_size = 0;
+    pca_ev_ratio = NaN;
+    cluster_size = NaN;
 end
 
 spot_size = nanmedian(cluster_size); %spot size = median number of cells per cluster/spot
@@ -85,7 +79,7 @@ pca_ev_ratio = pca_ev_ratio( pca_ev_ratio ~= 0);
 roundness_score = nanmedian(pca_ev_ratio);  %roundness score = median of pca eigenvalue ratios
 
 % compute center stripe radius and alignment score
-mid_stripe = boundaryY(time_pt)/2;
+mid_stripe = boundaryY/2;
 if ~isempty(cells)
     if size(cells, 1) > 1 && b0 > 4
         center_stripe_rad = min(dist(centroids, mid_stripe)) - median(rad_spots);
@@ -99,77 +93,77 @@ if ~isempty(cells)
         
     else
         % outlier case when there are not enough spots/cells
-        center_stripe_rad = 0;
-        alignment_score  = 1000000000000000000000;
+        center_stripe_rad = NaN;
+        alignment_score  = NaN;
     end
 else
-    center_stripe_rad = 0;
-    alignment_score  = 1000000000000000000000;
+    center_stripe_rad = NaN;
+    alignment_score  = NaN;
     
 end
 
 
 
 
-if ~isempty(cells_xanS) && ~isempty(cells_mel)
-    % compute X^S-M denstities
-    xanS_mel_density_temp = [];
-    for k = 1:size(cells_xanS,1)
-        if  dist(cells_xanS(k, 2), boundaryY(time_pt)) > 300 &&  dist(cells_xanS(k, 1), boundaryX(time_pt)) > 300 && dist(cells_xanS(k, 2), 0) > 300 &&  dist(cells_xanS(k, 1), 0) > 300
-            xanS_mel_density_temp(end+1) = length(find(dist(cells_xanS(k,:),   cells_mel') < 250));
+if ~isempty(cells_xanL) && ~isempty(cells_mel)
+    % compute X^L-M denstities
+    xanL_mel_density_temp = [];
+    for k = 1:size(cells_xanL,1)
+        if  dist(cells_xanL(k, 2), boundaryY) > 300 &&  dist(cells_xanL(k, 1), boundaryX) > 300 && dist(cells_xanL(k, 2), 0) > 300 &&  dist(cells_xanL(k, 1), 0) > 300
+            xanL_mel_density_temp(end+1) = length(find(dist(cells_xanL(k,:),   cells_mel') < 250));
         end
     end
-    xanS_mel_density = min(quantile(xanS_mel_density_temp, 20));
+    xanL_mel_density = min(quantile(xanL_mel_density_temp, 20));
     
-    % compute M-X^S denstities
-    mel_xanS_density_temp = [];
+    % compute M-X^L denstities
+    mel_xanL_density_temp = [];
     for k = 1:size(cells_mel,1)
-        if  dist(cells_mel(k, 2), boundaryY(time_pt)) > 300 &&  dist(cells_mel(k, 1), boundaryX(time_pt)) > 300 && dist(cells_mel(k, 2), 0) > 300 &&  dist(cells_mel(k, 1), 0) > 300
-            mel_xanS_density_temp(end+1) = length(find(dist(cells_mel(k,:),  cells_xanS') < 250));
+        if  dist(cells_mel(k, 2), boundaryY) > 300 &&  dist(cells_mel(k, 1), boundaryX) > 300 && dist(cells_mel(k, 2), 0) > 300 &&  dist(cells_mel(k, 1), 0) > 300
+            mel_xanL_density_temp(end+1) = length(find(dist(cells_mel(k,:),  cells_xanL') < 250));
         end
     end
-    mel_xanS_density = min(quantile(mel_xanS_density_temp, 20));
+    mel_xanL_density = min(quantile(mel_xanL_density_temp, 20));
     
 else
-    xanS_mel_density = 0;
-    mel_xanS_density = 0;
+    xanL_mel_density = NaN;
+    mel_xanL_density = NaN;
 end
 
 if ~isempty(cells_mel)
     
     % Compute M-M nearest neighbor distances
-    [~, mean_mel_space, var_mel_space] = getPeriodicDistMats(cells_mel, boundaryX(time_pt));
+    [~, mean_mel_space, var_mel_space] = getPeriodicDistMats(cells_mel, boundaryX);
     
     % Compute Mel CV
     melCV =  100*(sqrt(var_mel_space)/mean_mel_space);
     
 else
-    mean_mel_space = 0;
-    var_mel_space = 0;
-    melCV  = 0;
+    mean_mel_space = NaN;
+    var_mel_space = NaN;
+    melCV  = NaN;
     
 end
 
-if  ~isempty(cells_mel) &&  ~isempty(cells_xanC)
-    % Compute M-X^C nearest neighbor distances
-    D_MXC = pdist2(cells_mel, cells_xanC);
+if  ~isempty(cells_mel) &&  ~isempty(cells_xanD)
+    % Compute M-X^D nearest neighbor distances
+    D_MXC = pdist2(cells_mel, cells_xanD);
     indices = find(D_MXC > 120); 
     D_MXC(indices) = nan;
-    mean_melxanC_space = nanmean(min(D_MXC, [], 2));
-    var_melxanC_space = nanvar(min(D_MXC, [], 2));
+    mean_melxanD_space = nanmean(min(D_MXC, [], 2));
+    var_melxanD_space = nanvar(min(D_MXC, [], 2));
     
 else
-    mean_melxanC_space = 0;
-    var_melxanC_space = 0;
+    mean_melxanD_space = NaN;
+    var_melxanD_space = NaN;
 end
 
 
-% Compute X^C-X^C nearest neighbor distances
-if ~isempty(cells_xanC)
-    [~, mean_xanC_space, var_xanC_space] = getPeriodicDistMats(cells_xanC, boundaryX(time_pt));
+% Compute X^D-X^D nearest neighbor distances
+if ~isempty(cells_xanD)
+    [~, mean_xanD_space, var_xanD_space] = getPeriodicDistMats(cells_xanD, boundaryX);
 else
-    mean_xanC_space = 0;
-    var_xanC_space = 0;
+    mean_xanD_space = NaN;
+    var_xanD_space = NaN;
 end
 
 
