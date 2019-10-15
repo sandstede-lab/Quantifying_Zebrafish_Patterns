@@ -24,9 +24,9 @@ These instructions will get you a copy of the project up and running on your loc
 *  Matlab 
 
 #### Python libraries
- * ripser
- * matplotlib
- * numpy
+* ripser
+* matplotlib
+* numpy
 
 ### Install the ripser program as follows: 
 ```
@@ -49,12 +49,13 @@ MAT files from simulations of the agent-based model of A.V. and B.S. under the d
 
 ```
       cd data/sample_inputs
-      1) Out_WT_default_1.mat 
-      2) Out_pfef_default_1.mat  
-      3) Out_shady_default_1.mat 
-      4) Out_nacre_default_1.mat 
-      
 ```
+1) Out_WT_default_1.mat 
+2) Out_pfef_default_1.mat  
+3) Out_shady_default_1.mat 
+4) Out_nacre_default_1.mat 
+      
+
 
 
 ### Matlab examples:    
@@ -63,11 +64,13 @@ Example scripts are provided to demonstrate how to generate input data and run t
 
 ```
       cd src/matlab/examples
-      1) test_WT.m (quantify wild-type stripes)
-      2) test_pfeffer.m (quantify pfeffer spots)
-      3) test_shady.m (quantify shady spots)
-      4) test_nacre.m (quantify nacre spots)
+          
 ```
+1) test_WT.m (quantify wild-type stripes)
+2) test_pfeffer.m (quantify pfeffer spots)
+3) test_shady.m (quantify shady spots)
+4) test_nacre.m (quantify nacre spots)
+
 
 
 ## Pipeline 
@@ -75,8 +78,7 @@ The two main files are quantify_spots.m and quantify_stripes.m for quantifying s
 
 
 ### Generating input data
-```
-	The following steps are illustrates in the test examples in src/matlab/examples
+The following steps are illustrates in the test examples in src/matlab/examples
 	
 	1) Load in cell-coordinate data to MATLAB
 	2) Extract cell-coordinate data at time point of interest 
@@ -88,15 +90,14 @@ The two main files are quantify_spots.m and quantify_stripes.m for quantifying s
 	7) For spots, specify cell-type used for quantifying spots
 	8) For stripes, get time series (1) of X^d cell locations (cellsXd_all), (2) number of X^d cells (numXand_all), and y-boundaries (boundayY_all) for identifying when new interstripes form. 
 
-```
 
 ### Running the program
-```
+
 	1) To quantify stripes: quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL,...
      		mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
 	2) To quantify spots: quantify_spots(cells_mel, cells_iriL, cells_xanD, cells_xanL, ...
    		 PD_dir, boundaryX, boundaryY, pers_cutoff, cell_type)
-```
+
 
 
 
