@@ -1,8 +1,8 @@
-function  [num_stripes, num_Istripes, stripe_breaks, Istripe_breaks, dayOfNewStripes, max_stripe_separation, max_Istripe_separation, avg_straightness, med_straightness,  ...
+function  [num_stripes, num_Istripes, stripe_breaks, Istripe_breaks, dayOfNewStripes, stripe_width, Istripe_width, avg_straightness, med_straightness,  ...
      mean_mel_space, var_mel_space, mean_xanD_space, var_xanD_space,...
     mean_xanL_space, var_xanL_space, mean_melxanD_space, var_melxanD_space,  mean_melxanL_space, ...
     var_melxanL_space, melCV, xanL_mel_density, mel_xanL_density, iriLMel_density]  = quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL,...
-     mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
+     mel1_dir, xanD1_dir, xanL1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
 
 % This is a MATLAB function whichs reads in files containing the
 % dimension 0 and dimension 1 persistent homology data and outputs pattern
@@ -25,49 +25,49 @@ function  [num_stripes, num_Istripes, stripe_breaks, Istripe_breaks, dayOfNewStr
 
 % load in bar codes
 bars_mel1 = importdata(mel1_dir);
-bars_xanC1 = importdata(xanC1_dir);
-bars_xanS1 = importdata(xanS1_dir);
+bars_xanD1 = importdata(xanD1_dir);
+bars_xanL1 = importdata(xanL1_dir);
 
 %  get dimension 1 persistence; death-birth
 mel1_pers = bars_mel1(:,2)-bars_mel1(:,1);
-xanC1_pers = bars_xanC1(:,2)-bars_xanC1(:,1);
-xanS1_pers = bars_xanS1(:,2)- bars_xanS1(:,1);
+xanD1_pers = bars_xanD1(:,2)-bars_xanD1(:,1);
+xanL1_pers = bars_xanL1(:,2)- bars_xanL1(:,1);
 
 % define persistence thresholds based on cell-to-cell measurements
 pers_cutoff = 200;
 
 % compute dimension 1 betti numbers
-b1_xanC = length(find(xanC1_pers > pers_cutoff  & bars_xanC1(:,1) < 80));
-b1_xanS = length(find(xanS1_pers > pers_cutoff & bars_xanS1(:,1) < 100));
+b1_xanD = length(find(xanD1_pers > pers_cutoff  & bars_xanD1(:,1) < 80));
+b1_xanL = length(find(xanL1_pers > pers_cutoff & bars_xanL1(:,1) < 100));
 b1_mel = length(find(mel1_pers > pers_cutoff & bars_mel1(:,1) < 90));
 
-num_stripes = b1_xanS; 
-num_Istripes = b1_xanC;
+num_stripes = b1_xanL; 
+num_Istripes = b1_xanD;
 
-if b1_xanS < 2 && b1_mel < 2
+if b1_xanL < 2 && b1_mel < 2
     stripe_breaks = 1;
 else 
     stripe_breaks = 0;
 end
 
-if b1_xanC < 3 
+if b1_xanD < 3 
     Istripe_breaks = 1;
 else 
     Istripe_breaks = 0;
 end
 
-% use persistence of dim 1 features to get stripe widths, or maximum interstripe separation
-% similarly for interstripe widths. exclude 'infinite' bar length by
-% removing largest death point (first case). we see infinite bars in dim 1
+% use persistence of dim 1 features to get stripe widths, or interstripe separation
+% similarly for interstripe widths. Exclude 'infinite' bar length by
+% removing largest death point (first case). We see infinite bars in dim 1
 % because of periodic boundary conditions.
 
-xanC_widths = sort(xanC1_pers(xanC1_pers > pers_cutoff & bars_xanC1(:,1) < 80), 'descend');
-xanC_widths = xanC_widths(2:end);
-max_stripe_separation = 2*nanmedian(xanC_widths);
+xanD_widths = sort(xanD1_pers(xanD1_pers > pers_cutoff & bars_xanD1(:,1) < 80), 'descend');
+xanD_widths = xanD_widths(2:end);
+stripe_width = 2*nanmedian(xanD_widths);
 
-xanS_widths = sort(xanS1_pers(xanS1_pers > pers_cutoff  & bars_xanS1(:,1) < 100), 'descend');
-xanS_widths = xanS_widths(2:end);
-max_Istripe_separation = 2*nanmedian(xanS_widths);
+xanL_widths = sort(xanL1_pers(xanL1_pers > pers_cutoff  & bars_xanL1(:,1) < 100), 'descend');
+xanL_widths = xanL_widths(2:end);
+Istripe_width = 2*nanmedian(xanL_widths);
 
 
 % estimate first day when interstripes X1V and X1D begin to form
@@ -162,7 +162,7 @@ if ~isempty(cells_xanD)
     
     % Use X^C cells to compute straightness measure of stripes 
     x_querys = 0:60:boundaryX;
-    [top_cv, bottom_cv] = straightness_measure(cells_xanD, x_querys, b1_xanS, b1_mel, 'test', 0);
+    [top_cv, bottom_cv] = straightness_measure(cells_xanD, x_querys, b1_xanL, b1_mel, 'test', 0);
     
     avg_straightness = mean([top_cv; bottom_cv]);
     med_straightness = median([top_cv; bottom_cv]);

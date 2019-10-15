@@ -75,14 +75,14 @@ fprintf('python3 get_barcodes.py -i ../../data/sample_dist_mats/xanL_WT_Test_day
 pause; 
 
 mel1_dir = '../../../data/sample_barcodes/melD_WT_Test_day46_dim1';
-xanC1_dir =  '../../../data/sample_barcodes/xanD_WT_Test_day46_dim1';
-xanS1_dir = '../../../data/sample_barcodes/xanL_WT_Test_day46_dim1';
+xanD1_dir =  '../../../data/sample_barcodes/xanD_WT_Test_day46_dim1';
+xanL1_dir = '../../../data/sample_barcodes/xanL_WT_Test_day46_dim1';
 
 % quantify patterns 
-[num_stripes, num_Istripes, stripe_breaks, Istripe_breaks, dayOfNewStripes, max_stripe_separation, max_Istripe_separation, avg_straightness, med_straightness,  ...
+[num_stripes, num_Istripes, stripe_breaks, Istripe_breaks, dayOfNewStripes, stripe_width, Istripe_width, avg_straightness, med_straightness,  ...
      mean_mel_space, var_mel_space, mean_xanD_space, var_xanD_space,...
     mean_xanL_space, var_xanL_space, mean_melxanD_space, var_melxanD_space,  mean_melxanL_space, ...
     var_melxanL_space, melCV, xanL_mel_density, mel_xanL_density, iriLMel_density]  = quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL,...
-     mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
+     mel1_dir, xanD1_dir, xanL1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
 
 
