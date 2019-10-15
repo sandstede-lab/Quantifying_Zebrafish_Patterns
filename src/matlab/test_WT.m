@@ -1,13 +1,13 @@
 % WT example
 input_dir = '../../data/sample_inputs/Out_WT_default_1.mat';
 
-% barcodes generated using:
+% First generate the input distance matrices using processWTdata.m:
+%   processWTdata('../../data/sample_inputs/', 'Out_WT_default', 46, '../../data/sample_dist_mats', 1, '../../plots',  'Wild-type example')
+% Then use Ripser to generate barcodes via:
 %   python3 get_barcodes.py -i ../../data/sample_dist_mats/melD_WT_default_1_day46.txt -d 1 -o ../../data/sample_barcodes//melD_WT_default_1_day46
 %   python3 get_barcodes.py -i ../../data/sample_dist_mats/xanC_WT_default_1_day46.txt -d 1 -o ../../data/sample_barcodes/xanC_WT_default_1_day46
 %   python3 get_barcodes.py -i ../../data/sample_dist_mats/xanS_WT_default_1_day46.txt -d 1 -o ../../data/sample_barcodes/xanS_WT_default_1_day46
 % 
-% and the input distance matrices were generated using processWTdata.m:
-%   processWTdata('../../data/sample_inputs/', 'Out_WT_default', 46, '../../data/sample_dist_mats', 1, '../../plots',  'Wild-type example')
 
 
 

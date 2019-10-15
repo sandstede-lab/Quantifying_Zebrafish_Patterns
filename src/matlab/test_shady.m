@@ -5,11 +5,10 @@
 % pfeffer example
 input_dir = '../../data/sample_inputs/Out_shady_default_1.mat';
 
-% barcodes generated using:
-%   python3 get_barcodes.py -i ../../data/sample_dist_mats/melD_shady_default_1_day76.txt -d 0 -o ../../data/sample_barcodes/melD_shady_default_1_day76
-% and the input distance matrices were generated using processShadyata.m:
+% First generate the input distance matrices using processShadyata.m:
 %   processShadydata('../../data/sample_inputs/', 'Out_shady_default',  76, '../../data/sample_dist_mats', 1, '../../plots',  'shady example')
-
+% Then use Ripser to generate the barcodes via:
+%   python3 get_barcodes.py -i ../../data/sample_dist_mats/melD_shady_default_1_day76.txt -d 0 -o ../../data/sample_barcodes/melD_shady_default_1_day76
 PD_dir = '../../data/sample_barcodes/melD_shady_default_1_day76_dim0';
 
 time_pt = 76;

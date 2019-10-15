@@ -19,6 +19,18 @@ function  [num_spots, spot_size, roundness_score, center_stripe_rad, alignment_s
 % Author: Melissa R. McGuirl, Brown University. 2019.
 
 % load dimension 0 persistent homology data
+
+% get cell positions
+load(output_dir)
+
+cutoff =  0.1*boundaryY(time_pt);
+cells_mel = cellsM(find(cellsM(1:numMel(time_pt), 2,time_pt) > cutoff &  cellsM(1:numMel(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff), :, time_pt);
+cells_iriL = cellsIl(find(cellsIl(1:numIril(time_pt), 2,time_pt) > cutoff &  cellsIl(1:numIril(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
+cells_xanC = cellsXc(find(cellsXc(1:numXanc(time_pt), 2,time_pt) > cutoff &  cellsXc(1:numXanc(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
+cells_xanS = cellsXsn(find(cellsXsn(1:numXansn(time_pt), 2,time_pt) > cutoff &  cellsXsn(1:numXansn(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
+
+
+
 bars_0 = importdata(PD_dir);
 
 if isempty(bars_0)
@@ -34,14 +46,6 @@ dim0_pers = bars_0(:,2);
 % compute betii numbers
 b0 = length(find(dim0_pers > pers_cutoff));
 num_spots = b0; %number of spots = betti-0
-
-% get cell positions
-load(output_dir)
-cutoff =  0.1*boundaryY(time_pt);
-cells_mel = cellsM(find(cellsM(1:numMel(time_pt), 2,time_pt) > cutoff &  cellsM(1:numMel(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff), :, time_pt);
-cells_iriL = cellsIl(find(cellsIl(1:numIril(time_pt), 2,time_pt) > cutoff &  cellsIl(1:numIril(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
-cells_xanC = cellsXc(find(cellsXc(1:numXanc(time_pt), 2,time_pt) > cutoff &  cellsXc(1:numXanc(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
-cells_xanS = cellsXsn(find(cellsXsn(1:numXansn(time_pt), 2,time_pt) > cutoff &  cellsXsn(1:numXansn(time_pt), 2,time_pt) < boundaryY(time_pt) - cutoff),:, time_pt);
 
 if cell_type == 'M'
     cells = cells_mel;

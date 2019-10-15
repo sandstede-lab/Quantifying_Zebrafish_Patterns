@@ -5,10 +5,10 @@
 % pfeffer example
 input_dir = '../../data/sample_inputs/Out_nacre_default_1.mat';
 
-% barcodes generated using:
-%   python3 get_barcodes.py -i ../../data/sample_dist_mats/iriL_nacre_default_1_day56.txt -d 0 -o ../../data/sample_barcodes/iriL_nacre_default_1_day56
-% and the input distance matrices were generated using processNacredata.m:
+% First generate the input distance matrices using processNacredata.m:
 %   processNacredata('../../data/sample_inputs/', 'Out_nacre_default',  56, '../../data/sample_dist_mats', 1, '../../plots',  'nacre example')
+% Then use Ripser to generate barcodes via:
+%   python3 get_barcodes.py -i ../../data/sample_dist_mats/iriL_nacre_default_1_day56.txt -d 0 -o ../../data/sample_barcodes/iriL_nacre_default_1_day56
 
 PD_dir = '../../data/sample_barcodes/iriL_nacre_default_1_day56_dim0';
 

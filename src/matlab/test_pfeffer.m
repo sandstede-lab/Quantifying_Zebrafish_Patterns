@@ -5,10 +5,11 @@
 % pfeffer example
 input_dir = '../../data/sample_inputs/Out_pfef_default_1.mat';
 
-% barcodes generated using:
-%   python3 get_barcodes.py -i ../../data/sample_dist_mats/iriL_pfef_default_1_day56.txt -d 0 -o ../../data/sample_barcodes/iriL_pfef_default_1_day56
-% and the input distance matrices were generated using processPfefferdata.m:
+
+% First generate the input distance matrices using processPfefferdata.m:
 %   processPfefferdata('../../data/sample_inputs/', 'Out_pfef_default',  56, '../../data/sample_dist_mats', 1, '../../plots',  'pfeffer example')
+% Then use Ripser to generate barcodes via:
+%   python3 get_barcodes.py -i ../../data/sample_dist_mats/iriL_pfef_default_1_day56.txt -d 0 -o ../../data/sample_barcodes/iriL_pfef_default_1_day56
 
 PD_dir = '../../data/sample_barcodes/iriL_pfef_default_1_day56_dim0';
 
