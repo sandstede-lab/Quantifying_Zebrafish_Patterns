@@ -42,6 +42,12 @@ These instructions will get you a copy of the project up and running on your loc
       pip install -r requirements.txt
 ```
 
+### Input data format: 
+
+```
+	Input data is assumed to be a .mat file containing cell coordinate data over time for M, I^l, I^d, X^c (X^d), and X^s (X^l) cells under the naming scheme cellsM, cellsIl, cellsId, cellsXc, and cellsXsn, respectively. The cell coordinate data is a 3-d matrix of sixe N X 2 X M, where N is the maxmimum number of cells present across all cells and all stages of development and M is the number of time points in your data. The .mat file should also contain vectors of size M X 1 containing the number of cells of each cell type per time point, named numMel, numiril, numIrid, numXanc, and numXansn.  
+
+```
 
 ### Data samples:    
 
