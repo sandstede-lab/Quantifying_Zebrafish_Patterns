@@ -42,14 +42,6 @@ These instructions will get you a copy of the project up and running on your loc
       pip install -r requirements.txt
 ```
 
-### Input data format: 
-
-```
-	Input data is assumed to be a .mat file containing cell coordinate data over time for M, I^l, I^d, X^c (X^d), and X^s (X^l) cells under the naming scheme cellsM, cellsIl, cellsId, cellsXc, and cellsXsn, respectively. 
-	The cell coordinate data is a 3-d matrix of sixe N X 2 X M, where N is the maxmimum number of cells present across all cells and all stages of development and M is the number of time points in your data. 
-	The .mat file should also contain vectors of size M X 1 containing the number of cells of each cell type per time point, named numMel, numiril, numIrid, numXanc, and numXansn.  
-
-```
 
 ### Data samples:    
 
@@ -65,7 +57,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Matlab examples:    
 
 ```
-      cd src/matlab
+      cd src/matlab/examples
       1) test_WT.m (quantify wild-type stripes)
       2) test_pfeffer.m (quantify pfeffer spots)
       3) test_shady.m (quantify shady spots)
@@ -73,7 +65,27 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 
-## Notes
+## Pipeline 
+```
+The two main files are quantify_spots.m and quantify_stripes.m for quantifying spots and stripes, respectively. 
+```
 
-Code notation: X^C is equivalend to X^d in the paper, and X^S is equivalent to X^l. 
+### Generating input data
+```
+	1) Load in cell-coordinate data to MATLAB
+	2) Extract cell-coordinate data at time point of interest
+	3) Generate distance matrices of cell-cell pairwise distances and save as text file
+	4) Run Ripser using  get_barcodes.py in src/python to get persistent homology data
+
+```
+
+### Running the program
+```
+	1) To quantify stripes: quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL,...
+     		mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
+	2) To quantify spots: quantify_spots(cells_mel, cells_iriL, cells_xanD, cells_xanL, ...
+   		 PD_dir, boundaryX, boundaryY, pers_cutoff, cell_type)
+```
+
+
 
