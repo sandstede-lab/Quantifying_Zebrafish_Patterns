@@ -96,7 +96,7 @@ The following steps are illustrated in the test examples in src/matlab/examples.
 
 ## Notes
 
-If the straightness measure is negative, divide by (max(top_bd_x)-min(top_bd_x)) instead of max(x_querys) in the calculation of top_cv and bottom_cv in straightness_measure.m. Negative straightness measures indicate erroneuous boundary detection, which will be improved in a newer release of the software.
+If the straightness measure is negative, divide by (max(top_bd_x)-min(top_bd_x)) instead of max(x_querys) in the calculation of top_cv and bottom_cv in straightness_measure.m. Negative straightness measures indicate erroneuous boundary detection, which will be improved in a future release of the software.
 
 
 
