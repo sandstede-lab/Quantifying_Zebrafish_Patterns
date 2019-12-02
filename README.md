@@ -78,7 +78,7 @@ The two main files are quantify_spots.m and quantify_stripes.m for quantifying s
 ### Generating input data
 The following steps are illustrated in the test examples in src/matlab/examples. After running test_WT.m, test_pfeffer.m, test_shady.m, or test_nacre.m, all of these steps will be complete. The distance matrices are saved in data/sample_dist_mats and the persistence diagrams should be saved in data/sample_barcodes/ after running Ripser in Python. 
 	
-1) Load in cell-coordinate data to MATLAB 
+1) Load in cell-coordinate data to MATLAB (e.g. load data/sample_inputs/Out_WT_default_1.mat)
 2) Extract cell-coordinate data at time point of interest 
 3) Save cell-coordinates as cells_mel, cells_iriL, cells_xanD, cells_xanL
 3) Generate distance matrices of cell-cell pairwise distances and save as text file
