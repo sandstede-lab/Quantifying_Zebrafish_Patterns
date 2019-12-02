@@ -56,8 +56,6 @@ MAT files from simulations of the agent-based model of A.V. and B.S. under the d
 4) Out_nacre_default_1.mat 
       
 
-
-
 ### Matlab examples:    
 
 Example scripts are provided to demonstrate how to generate input data and run the program from wild-type stripes and mutants. 
@@ -78,14 +76,14 @@ The two main files are quantify_spots.m and quantify_stripes.m for quantifying s
 
 
 ### Generating input data
-The following steps are illustrates in the test examples in src/matlab/examples
+The following steps are illustrated in the test examples in src/matlab/examples. After running test_WT.m, test_pfeffer.m, test_shady.m, or test_nacre.m, all of these steps will be complete. The distance matrices are saved in data/sample_dist_mats and the persistence diagrams should be saved in data/sample_barcodes/ after running Ripser in Python. 
 	
-1) Load in cell-coordinate data to MATLAB
+1) Load in cell-coordinate data to MATLAB 
 2) Extract cell-coordinate data at time point of interest 
 3) Save cell-coordinates as cells_mel, cells_iriL, cells_xanD, cells_xanL
 3) Generate distance matrices of cell-cell pairwise distances and save as text file
 4) Run Ripser using get_barcodes.py in src/python to get persistent homology data into PD_dir
-5) Compute boundaryX and boundaryY, the right and top boundaries of the input domain (assume domain starts at origin)
+5) Compute boundaryX and boundaryY, the right and top boundaries of the input domain (assume domain starts at origin). For the examples provided, these are all saved in the input .mat files as boundaryX(time_pt) and boundaryY(time_pt).
 6) Specify persistence cut-off for betti number computation
 7) For spots, specify cell-type used for quantifying spots
 8) For stripes, get time series (1) of X^d cell locations (cellsXd_all), (2) number of X^d cells (numXand_all), and y-boundaries (boundayY_all) for identifying when new interstripes form. 
