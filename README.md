@@ -94,6 +94,9 @@ The following steps are illustrated in the test examples in src/matlab/examples.
 1) To quantify stripes: quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL, mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
 2) To quantify spots: quantify_spots(cells_mel, cells_iriL, cells_xanD, cells_xanL, PD_dir, boundaryX, boundaryY, pers_cutoff, cell_type)
 
+## Notes
+
+If the straightness measure is negative, divide by (max(top_bd_x)-min(top_bd_x)) instead of max(x_querys) in the calculation of top_cv and bottom_cv in straightness_measure.m. Negative straightness measures indicate erroneuous boundary detection, which will be improved in a newer release of the software.
 
 
 
