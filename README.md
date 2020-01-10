@@ -43,9 +43,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 
-### Data samples:    
+### Data and Data samples:    
 
-MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime are provided for sample data. If you would like more data, please contact Melissa R. McGuirl at melissa_mcguirl@brown.edu.
+A few MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime are provided for sample data. Complete datasets from full model simulations are freely available on figshare at www.figshare.com/projects/Zebrafish_simulation_data/72689. 
 
 ```
       cd data/sample_inputs
