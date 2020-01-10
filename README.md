@@ -45,7 +45,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Data and Data samples:    
 
-A few MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime are provided for sample data. Complete datasets from full model simulations are freely available on figshare at www.figshare.com/projects/Zebrafish_simulation_data/72689. 
+A few MAT files from simulations of the agent-based model of A.V. and B.S. under the default parameter regime are provided as sample data in the data/sample_inputs/ folder. Complete datasets from full model simulations are freely available on figshare at www.figshare.com/projects/Zebrafish_simulation_data/72689. 
 
 ```
       cd data/sample_inputs
