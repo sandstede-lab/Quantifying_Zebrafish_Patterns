@@ -37,7 +37,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Source 
 ```
       cd 
-      git clone https://github.com/MelissaMcguirl/Quantifying_Zebrafish_Patterns
+      git clone https://github.com/sandstede-lab/Quantifying_Zebrafish_Patterns
       cd Quantifying_Zebrafish_Patterns
       pip install -r requirements.txt
 ```
