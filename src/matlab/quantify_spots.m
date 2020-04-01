@@ -5,7 +5,7 @@ function  [num_spots, spot_size, roundness_score, center_stripe_rad, alignment_s
 
 % This is a MATLAB function whichs reads in files containing the
 % dimension 0 persistent homology data and outputs pattern
-% statistics of a shady mutant.
+% statistics of a spotted mutant.
 %
 % Inputs: cells_mel, cells_iriL, cells_xanD, and cells_xanL are coordinate data of cell locations; PD_dir is a path
 % to the saved persistent homology data files (Ripser outputs); boundaryX
@@ -14,17 +14,13 @@ function  [num_spots, spot_size, roundness_score, center_stripe_rad, alignment_s
 % counting betti-0 numbers (based on cell-to-cell measurements); cell_type
 % is the cell type used to compute spot statistics (options are 'M', 'I').
 %
-% Outputs: Complete collection of pattern statistcs for shady spots
+% Outputs: Complete collection of pattern statistcs for mutant spots
 % based on topological data analysis, machine learning, and direct
 % calculations.
 %
 % Author: Melissa R. McGuirl, Brown University. 2019.
 
 % load dimension 0 persistent homology data
-
-% get cell positions
-
-
 bars_0 = importdata(PD_dir);
 
 if isempty(bars_0)
@@ -64,7 +60,7 @@ if ~isempty(cells) && size(cells, 1) > 1 && b0 > 0
         cluster_size(k,1) = length(find(c == k)) ;
         if cluster_size(k,1) > 4 &&  boundaryX - max(cells(find(c==k),1)) > 500 && min(cells(find(c==k),1)) > 500 &&   boundaryY - max(cells(find(c==k),2)) > 500 && min(cells(find(c==k),2)) > 500
             [~, ~,latent] = pca(cells(find(c==k),:));
-            pca_ev_ratio(k,1) = latent(1)/latent(2); % pca eigenvalue ratio
+            pca_ev_ratio(k,1) = latent(1)/latent(2); % pca eigenvalue ratio for spot roundness
             centroids(k,:) = mean(cells(find(c == k),:)); % centroids of clusters
             rad_spots(k,1) = max(dist(cells(find(c== k),:), mean(cells(find(c== k),:))')); %radius of spots
         end
