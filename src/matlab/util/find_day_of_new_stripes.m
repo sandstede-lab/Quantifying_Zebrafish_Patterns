@@ -27,8 +27,8 @@ while dayOfNewStripes == 0 && count <= length(times)
         lowerbounds(count,1) = min(cells_xanD(:,2));
         upperbounds(count,1) = max(cells_xanD(:,2));
         if count > 1 
-            % If new cells begins to form > 200 mum away from center
-            % stripe, assume that new interstripes are starting to form.
+            % If new cells begins to form are > 200 mum away from cells at the 
+            % previous day, assume that new interstripes are starting to form.
             if lowerbounds(count, 1) - lowerbounds(count-1 , 1) > 200 || upperbounds(count,1) - upperbounds(count-1, 1) > 200
                 dayOfNewStripes  =  time_current;
             end
