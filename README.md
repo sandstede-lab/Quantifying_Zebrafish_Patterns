@@ -94,7 +94,7 @@ The following steps are illustrated in the test examples in src/matlab/examples.
 1) To quantify stripes: quantify_stripes(cells_mel, cells_iriL, cells_xanD, cells_xanL, mel1_dir, xanC1_dir, xanS1_dir, boundaryX, boundaryY, cellsXd_all, numXand_all, boundaryY_all)
 2) To quantify spots: quantify_spots(cells_mel, cells_iriL, cells_xanD, cells_xanL, PD_dir, boundaryX, boundaryY, pers_cutoff, cell_type)
 
-### Full Documentation 
+## Full Documentation 
 
 For complete documentaion on this code, see Documentation_for_Quantifying_Zebrafish_Patterns_Code.pdf.
 
