@@ -10,7 +10,7 @@ For questions/comments please contact Melissa R. McGuirl at melissa_mcguirl@brow
 
 This software computes pattern statistics using topological data analysis and machine learning techniques. The input of this software is a collection of coordinate data from pigment cells.
 
-This software is based upon the work presented in M.R. McGuirl, A. Volkening, and B. Sandstede, "Topological data analysis of zebrafish patterns," PNAS 2020, 117 (10) 5113-5124. https://www.pnas.org/content/117/10/5113
+This software is based upon the work presented in [M.R. McGuirl, A. Volkening, and B. Sandstede, "Topological data analysis of zebrafish patterns," PNAS 2020, 117 (10) 5113-5124](https://www.pnas.org/content/117/10/5113).
 
 ## Getting Started
 
